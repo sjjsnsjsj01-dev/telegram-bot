@@ -8,17 +8,17 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.reply_to(message, "البوت يعمل بنجاح!")
+    bot.reply_to(message, "البوت يعمل بنجاح")
 
 # ---- web server ----
-app = Flask('')
+app = Flask(__name__)
 
 @app.route('/')
 def home():
     return "Bot is running!"
 
 def run():
-    app.run(host="0.0.0.0", port=10000)
+    app.run(host="0.0.0.0", port=8080)
 
 def keep_alive():
     t = threading.Thread(target=run)
