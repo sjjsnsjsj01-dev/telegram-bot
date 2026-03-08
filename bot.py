@@ -1,5 +1,6 @@
 import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+import threading
+from flask import Flask
 
 TOKEN = "8231171750:AAEhl2vzp5RcTHr0y2OyQhNGjk_jkl3I7WA"
 
@@ -7,24 +8,22 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start(message):
+    bot.reply_to(message, "البوت يعمل بنجاح!")
 
-    keyboard = InlineKeyboardMarkup()
+# ---- web server ----
+app = Flask('')
 
-    web = WebAppInfo(
-        url="https://sjjsnsjsj01-dev.github.io/Malek_Aldahab/"
-    )
+@app.route('/')
+def home():
+    return "Bot is running!"
 
-    button = InlineKeyboardButton(
-        "🚀 فتح منصة القناص VIP",
-        web_app=web
-    )
+def run():
+    app.run(host="0.0.0.0", port=10000)
 
-    keyboard.add(button)
+def keep_alive():
+    t = threading.Thread(target=run)
+    t.start()
 
-    bot.send_message(
-        message.chat.id,
-        "👑 مرحباً بك في منصة القناص VIP",
-        reply_markup=keyboard
-    )
-
+# ---- run bot ----
+keep_alive()
 bot.infinity_polling()
