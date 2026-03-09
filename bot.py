@@ -10,58 +10,49 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start'])
 def start(message):
 
-    photo = "https://images.unsplash.com/photo-1610375461246-83df859d849d"
+    photo1 = "https://images.unsplash.com/photo-1610375461246-83df859d849d"
+    photo2 = "https://dummyimage.com/800x400/000/fff.jpg&text=Gold+Trading"
 
     text = """
-👑 *مرحباً بك في منصة القناص VIP*
+👑 مرحباً بك في منصة VIP
 
-منصة احترافية لتداول الذهب والعملات الرقمية.
+📊 تداول الذهب والعملات
+⚡ توصيات يومية
+💎 تحليلات احترافية
 
-📊 إشارات تداول دقيقة  
-⚡ توصيات فورية  
-📈 تحليلات احترافية  
-💎 عضوية VIP حصرية  
-
-اختر أحد الخيارات 👇
+ابدأ الآن بالدخول إلى المنصة 👇
 """
 
-    keyboard = InlineKeyboardMarkup(row_width=2)
+    keyboard = InlineKeyboardMarkup(row_width=1)
 
-    btn1 = InlineKeyboardButton(
+    btn = InlineKeyboardButton(
         "🚀 دخول المنصة",
-        web_app=WebAppInfo(
-            url="https://sjjsnsjsj01-dev.github.io/Malek_Aldahab/"
-        )
+        web_app=WebAppInfo(url="https://sjjsnsjsj01-dev.github.io/Malek_Alda/")
     )
 
-    btn2 = InlineKeyboardButton(
-        "📢 قناة التوصيات",
-        url="https://t.me/yourchannel"
-    )
+    keyboard.add(btn)
 
-    btn3 = InlineKeyboardButton(
-        "💬 الدعم الفني",
-        url="https://t.me/yourusername"
-    )
-
-    keyboard.add(btn1)
-    keyboard.add(btn2, btn3)
-
+    # ارسال الصورة الاولى
     bot.send_photo(
         message.chat.id,
-        photo,
+        photo1,
         caption=text,
-        parse_mode="Markdown",
         reply_markup=keyboard
     )
 
-# ----- Web server for Render -----
+    # ارسال الصورة الثانية
+    bot.send_photo(
+        message.chat.id,
+        photo2
+    )
 
+
+# سيرفر لتشغيل البوت على Render
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Bot running"
+    return "Bot is running"
 
 def run():
     app.run(host="0.0.0.0", port=8080)
@@ -72,4 +63,5 @@ def keep_alive():
 
 keep_alive()
 
+print("Bot started...")
 bot.infinity_polling()
