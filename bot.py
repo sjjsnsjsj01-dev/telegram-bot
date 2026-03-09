@@ -11,23 +11,23 @@ bot = telebot.TeleBot(TOKEN)
 def start(message):
 
     text = """
-👑 مرحباً بك في منصة التداول VIP
+👑 مرحباً بك في بوابة عالم القناص VIP
 
-📊 تداول الذهب والعملات
-📈 توصيات يومية
-💎 تحليلات احترافية
+📊 منصة تداول الذهب والعملات
+📈 تحليلات وتوصيات احترافية
+⚡ إشارات يومية
 
 اضغط الزر للدخول إلى المنصة 👇
 """
 
     keyboard = InlineKeyboardMarkup()
 
-    btn = InlineKeyboardButton(
+    button = InlineKeyboardButton(
         "🚀 دخول المنصة",
-        web_app=WebAppInfo("https://sjjsnsjsj01-dev.github.io/Malek_Alda/")
+        web_app=WebAppInfo("https://sjjsnsjsj01-dev.github.io/Malek_Aldahab/")
     )
 
-    keyboard.add(btn)
+    keyboard.add(button)
 
     bot.send_message(
         message.chat.id,
@@ -36,18 +36,22 @@ def start(message):
     )
 
 
+# تشغيل السيرفر (مطلوب لـ Render)
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return "Bot is running"
 
+
 def run():
     app.run(host="0.0.0.0", port=8080)
+
 
 def keep_alive():
     t = threading.Thread(target=run)
     t.start()
+
 
 keep_alive()
 
