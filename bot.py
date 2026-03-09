@@ -7,14 +7,14 @@ TOKEN = "8231171750:AAEhl2vzp5RcTHr0y2OyQhNGjk_jkl3I7WA"
 
 bot = telebot.TeleBot(TOKEN)
 
-# ---- start command ----
+# start command
 @bot.message_handler(commands=['start'])
 def start(message):
 
     markup = InlineKeyboardMarkup()
 
     btn = InlineKeyboardButton(
-        "🚀 فتح منصة القناص VIP",
+        text="🚀 دخول منصة القناص VIP",
         web_app=WebAppInfo("https://sjjsnsjsj01-dev.github.io/Malek_Aldahab/")
     )
 
@@ -22,7 +22,7 @@ def start(message):
 
     bot.send_message(
         message.chat.id,
-        "👑 مرحباً بك في منصة القناص VIP\nاضغط الزر لفتح المنصة:",
+        "👑 مرحباً بك في بوابة عالم القناص VIP\nاضغط الزر للدخول مباشرة:",
         reply_markup=markup
     )
 
@@ -40,6 +40,6 @@ def keep_alive():
     t = threading.Thread(target=run)
     t.start()
 
-# ---- run bot ----
+# تشغيل البوت
 keep_alive()
 bot.infinity_polling()
