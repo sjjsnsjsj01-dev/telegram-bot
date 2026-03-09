@@ -18,27 +18,29 @@ def start(message):
 منصة احترافية لتداول الذهب والعملات الرقمية.
 
 📊 إشارات تداول دقيقة  
-⚡ توصيات فورية للسوق  
+⚡ توصيات فورية  
 📈 تحليلات احترافية  
-💎 عضوية VIP حصرية
+💎 عضوية VIP حصرية  
 
-ابدأ الآن بالدخول إلى المنصة 👇
+اختر أحد الخيارات 👇
 """
 
     keyboard = InlineKeyboardMarkup(row_width=2)
 
     btn1 = InlineKeyboardButton(
         "🚀 دخول المنصة",
-        web_app=WebAppInfo("https://sjjsnsjsj01-dev.github.io/Malek_Aldahab/")
+        web_app=WebAppInfo(
+            url="https://sjjsnsjsj01-dev.github.io/Malek_Aldahab/"
+        )
     )
 
     btn2 = InlineKeyboardButton(
-        "📊 التوصيات",
+        "📢 قناة التوصيات",
         url="https://t.me/yourchannel"
     )
 
     btn3 = InlineKeyboardButton(
-        "💬 الدعم",
+        "💬 الدعم الفني",
         url="https://t.me/yourusername"
     )
 
@@ -53,7 +55,8 @@ def start(message):
         reply_markup=keyboard
     )
 
-# سيرفر Render
+# ----- Web server for Render -----
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -68,4 +71,5 @@ def keep_alive():
     t.start()
 
 keep_alive()
+
 bot.infinity_polling()
