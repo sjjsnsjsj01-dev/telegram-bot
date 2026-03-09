@@ -1,6 +1,5 @@
 import telebot
 import threading
-import time
 from flask import Flask
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
@@ -11,46 +10,55 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start'])
 def start(message):
 
-    # إرسال صورة الترحيب
-    photo_url = "https://i.imgur.com/6Iej2c3.jpeg"
+    photo = "https://images.unsplash.com/photo-1610375461246-83df859d849d"
 
     text = """
-👑 مرحباً بك في منصة القناص VIP
+👑 *مرحباً بك في منصة القناص VIP*
 
-منصة متخصصة في تقديم توصيات تداول احترافية.
+منصة احترافية لتداول الذهب والعملات الرقمية.
 
 📊 إشارات تداول دقيقة  
-⚡ توصيات فورية  
+⚡ توصيات فورية للسوق  
 📈 تحليلات احترافية  
-💎 محتوى خاص VIP
+💎 عضوية VIP حصرية
+
+ابدأ الآن بالدخول إلى المنصة 👇
 """
 
-    bot.send_photo(message.chat.id, photo_url, caption=text)
+    keyboard = InlineKeyboardMarkup(row_width=2)
 
-    # انتظار ثانية
-    time.sleep(1)
-
-    # زر فتح الموقع
-    markup = InlineKeyboardMarkup()
-    button = InlineKeyboardButton(
-        "🚀 دخول منصة القناص VIP",
+    btn1 = InlineKeyboardButton(
+        "🚀 دخول المنصة",
         web_app=WebAppInfo("https://sjjsnsjsj01-dev.github.io/Malek_Aldahab/")
     )
 
-    markup.add(button)
-
-    bot.send_message(
-        message.chat.id,
-        "اضغط للدخول إلى المنصة:",
-        reply_markup=markup
+    btn2 = InlineKeyboardButton(
+        "📊 التوصيات",
+        url="https://t.me/yourchannel"
     )
 
-# ---- web server ----
+    btn3 = InlineKeyboardButton(
+        "💬 الدعم",
+        url="https://t.me/yourusername"
+    )
+
+    keyboard.add(btn1)
+    keyboard.add(btn2, btn3)
+
+    bot.send_photo(
+        message.chat.id,
+        photo,
+        caption=text,
+        parse_mode="Markdown",
+        reply_markup=keyboard
+    )
+
+# سيرفر Render
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Bot is running!"
+    return "Bot running"
 
 def run():
     app.run(host="0.0.0.0", port=8080)
